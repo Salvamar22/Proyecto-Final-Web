@@ -1,15 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Title from './Components/Title/Title';
 import Label from './Components/Label/Label';
 import Input from './Components/Input/input';
-
+import { useSessionContexts } from '../../contexts/SessionContexts';
 const Login = () => {
 
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
-
-    
+    const {login} = useSessionContexts();
+    const [error, setError] = useState(false);
+    const onChange = (e, save) => {
+        save(e.target.value);}
+  
     function handleChange(name, value){
         if(name === 'usuario'){
         setUser(value)
@@ -17,17 +20,23 @@ const Login = () => {
             setPassword(value)
         }
     }
+        async function handleSubmit(){
 
-        function handleSubmit(){
-            let account = {user, password}
-            if(account){
-                console.log('account', account)
+            const logged = await login (user, password)
+            if(logged){
+                console.log("logueado");
+                setError(false);
             }
+            else 
+            setError(!logged);
         }
 
     return(
         <div class="min-h-screen bg-blue-200 py-6 flex flex-col justify-center sm:py-12 ">
             <Title text='¡BIENVENIDO!'/>
+            {error && <p className="w-full rounded p-3 text-center text-white font-roboto bg-red-700 select-none">
+                        Un error ha ocurrido en el inicio de sesión ingrese sus datos validos porfavor.
+                    </p>}
             <Label text='Usuario'/>
             <Input 
             attribute={{
@@ -54,7 +63,6 @@ const Login = () => {
                 Ingresar
             </button>
             
-          
         </div>
     )
 }
