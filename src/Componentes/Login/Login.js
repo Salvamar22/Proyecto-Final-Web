@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { Navigate } from 'react-router-dom';
 
 import Title from './Components/Title/Title';
 import Label from './Components/Label/Label';
