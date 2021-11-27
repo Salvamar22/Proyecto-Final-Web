@@ -8,6 +8,7 @@ const transformPost = (rawPost) => {
         image: rawPost.image,
         active: rawPost.active,
         createdAt: rawPost.createdAt,
+        user: rawPost.user,
         likes: rawPost.likes
     }
 }
@@ -21,6 +22,7 @@ const adminServices = {
         image: null,
         active: false,
         createdAt: null,
+        user: { username: ""},
         likes: []
     },
 
@@ -86,7 +88,7 @@ const adminServices = {
                     image: image
                 })
             };
-      
+            
             const response = await fetch(`${BASE_URL}/post/update/${id}`, config);
 
             if (response.ok) {
