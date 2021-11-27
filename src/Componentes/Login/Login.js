@@ -33,11 +33,15 @@ const Login = () => {
         }
 
     return(
-        <div class="min-h-screen bg-blue-200 py-6 flex flex-col justify-center sm:py-12 ">
+        <div class=" min-h-screen items-center  bg-gray-500 py-3 flex flex-col justify-center 
+         ">
+            <div className= "bg-white border-solid border-2 border-black flex flex-col justify-center rounded-md">
             <Title text='¡BIENVENIDO!'/>
-            {error && <p className="w-full rounded p-3 text-center text-white font-roboto bg-red-700 select-none">
-                        Un error ha ocurrido en el inicio de sesión ingrese sus datos validos porfavor.
+            {error && <p className=" mt-3 rounded-md p-2 text-center text-black  bg-purple-200 select-none">
+                        Un error ha ocurrido en el inicio de sesión
+                        ingrese sus datos validos porfavor.
                     </p>}
+                 
             <Label text='Usuario'/>
             <Input 
             attribute={{
@@ -60,10 +64,11 @@ const Login = () => {
             handleChange={handleChange}
                 />
             
-            <button class="mt-4 bg-indigo-500 text-white py-6 rounded-md hover:bg-indigo-600" onClick = {handleSubmit}>
+            <button class="mt-5 bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-gray-200 font-mono md:font-Cambria
+            text-2xl" onClick = {handleSubmit}>
                 Ingresar
             </button>
-            
+            </div>
         </div>
     )
 }

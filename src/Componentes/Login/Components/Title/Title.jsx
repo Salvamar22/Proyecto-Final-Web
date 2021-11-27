@@ -3,7 +3,7 @@ import React from 'react';
 const Title = ({ text }) => {
    
     return(
-        <div class="text-2xl font-light" >
+        <div class="mt-3 text-2xl  font-mono text-center" >
         <label className='title-label'>{text}</label>
         </div>
     )
