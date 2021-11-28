@@ -1,5 +1,6 @@
 import { useSessionContext } from "../../contexts/SessionContext.js";
 import { useEffect, useState } from "react";
+import { FaArrowLeft } from 'react-icons/fa';
 import adminServices from "../../Services/admin.services.js";
 import PostForm from "../../Components/PostForm/PostForm.jsx";
 import Options from "../../Components/Options/Options.jsx";
@@ -88,7 +89,6 @@ const AdminPage = () => {
     const hideShow = () => { return selectedPost.active ? "Ocultar Post" : "Mostrar Post"}
     return (
         <div className="w-full bg-blue-800 relative">
-            
             <TabContainer tabIndex={0} tabController={tabController} >
                 <button onClick={ () => {setTabController(1)}}>
                     Añadir comentario
@@ -103,13 +103,17 @@ const AdminPage = () => {
                 }
             </TabContainer>
             
-            <TabContainer tabIndex={1} tabController={tabController} >
-                <button onClick={ () => {setTabController(0)}}>Regresar</button>
+            <TabContainer className="bg-gray-200 p-4 flex flex-col h-full justify-center items-center" tabIndex={1} tabController={tabController} >
+                <button className="text-gray-400 self-start text-lg hover:text-gray-700 mb-2" onClick={ () => {setTabController(0)}}>
+                    <FaArrowLeft className=" text-xl"/>
+                </button>
                 <PostForm onSubmit={ onCreateHandler } />
             </TabContainer>
             
-            <TabContainer tabIndex={2} tabController={tabController} >
-                <button onClick={ () => {setTabController(0)}}>Regresar</button>
+            <TabContainer className="bg-gray-200 p-4 flex flex-col h-full justify-center items-center" tabIndex={2} tabController={tabController} >
+                <button className="text-gray-400 text-lg self-start hover:text-gray-700 mb-2" onClick={ () => {setTabController(0)}}>
+                    <FaArrowLeft className="text-xl"/>
+                </button>
                 <PostForm onSubmit={ onUpdateHandler }
                     idPost={selectedPost._id}
                     titlePost={selectedPost.title}
