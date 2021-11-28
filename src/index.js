@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {SessionProvider} from "./contexts/SessionContext"
+import {SessionProvider} from "./contexts/SessionContext.js"
 
 ReactDOM.render(
   <React.StrictMode>
