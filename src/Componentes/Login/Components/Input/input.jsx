@@ -3,7 +3,7 @@ import React from 'react';
 
 const Input = ({attribute, handleChange, param}) =>{
     return(
-        <div class="border  px-3 py-5 mt-2 rounded-md hover:outline-none focus:outline-none text-center
+        <div class="border  px-3 py-5 mt- rounded-md hover:outline-none focus:outline-none text-center
         ">
             <input 
             id={attribute.id}
