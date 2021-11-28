@@ -1,4 +1,4 @@
-import { useSessionContext } from "../../Contexts/SessionContext.js";
+import { useSessionContext } from "../../contexts/SessionContext.js";
 import { useEffect, useState } from "react";
 import adminServices from "../../Services/admin.services.js";
 import PostForm from "../../Components/PostForm/PostForm.jsx";

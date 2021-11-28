@@ -1,35 +1,51 @@
 import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import Title from './Components/Title/Title';
 import Label from './Components/Label/Label';
 import Input from './Components/Input/input';
-import { useSessionContexts } from '../../contexts/SessionContext';
-const Login = () => {
+import { useSessionContext } from '../../contexts/SessionContext';
 
-    const [user, setUser] = useState('');
+const rolePages = {
+    "admin": "/admin",
+    "user": "/user"
+  }
+
+const Login = () => {
+    const [localUser, setLocalUser] = useState('');
     const [password, setPassword] = useState('');
-    const {login} = useSessionContexts();
+    const {login, user} = useSessionContext();
+    const navigate=useNavigate();
     const [error, setError] = useState(false);
     const onChange = (e, save) => {
         save(e.target.value);}
   
+    useEffect(()=>{
+            if(user){navigate(rolePages[user.role] ?? "/")}}
+            ,[user]
+            )
+
+
+    
+
     function handleChange(name, value){
         if(name === 'usuario'){
-        setUser(value)
+        setLocalUser(value)
         } else {
             setPassword(value)
         }
     }
         async function handleSubmit(){
-
-            const logged = await login (user, password)
+            const logged = await login(localUser, password)
             if(logged){
                 console.log("logueado");
                 setError(false);
+                return <Navigate replace to=
+                {rolePages[localUser.role] ?? "/"}/>
             }
             else 
             setError(!logged);
+
         }
 
     return(
@@ -72,5 +88,4 @@ const Login = () => {
         </div>
     )
 }
-
 export default Login;

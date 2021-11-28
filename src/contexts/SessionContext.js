@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import sessionServices from './../services/session.services';
+import React, {useCallback, useMemo, useEffect, useState} from "react";
+import sessionServices from "../Services/session.services.js"
 
 const SessionContext = React.createContext();
 const TOKEN_KEY = "token";
@@ -8,25 +8,29 @@ export const SessionProvider = (props) => {
     const [token, setToken] = useState(undefined);
     const [user, setUser] = useState(undefined);
 
+   
+    
     useEffect(() => {
-        const verifyTokenAsync = async () => {
-            const lsToken = getToken();
+        const verifyToken = async () => {
+            const tokenLS = localStorage.getItem(TOKEN_KEY);
 
-            if(lsToken) {
-                const { username, role } = await sessionServices.verifyToken(lsToken);
+            if(tokenLS) {
+                const {username, role} = await sessionServices.verifyToken(tokenLS);
+                
                 if(username && role) {
-                    setUser({ username, role });
-                    setTokenAll(lsToken);
+                    setUser({ username, role});
+                    setTokenAll(tokenLS);
                 }
             }
-        }
+        };
 
-        verifyTokenAsync();
+        verifyToken();
     }, [token])
 
-    const setTokenAll = (token) => {
-        localStorage.setItem(TOKEN_KEY, token);
-        setToken(token);
+
+    const setTokenAll = (newToken) => {
+        localStorage.setItem(TOKEN_KEY, newToken);
+        setToken(newToken);
     }
 
     const login = useCallback((username, password)=> {
@@ -49,27 +53,26 @@ export const SessionProvider = (props) => {
 
         return loginAsync();
     }, [])
-
+    
     const logout = useCallback(() => {
         setUser(undefined);
         setTokenAll("");
     }, [])
 
-    const value = useMemo(()=> ({
+    const value = useMemo( () => ({
         token: token,
         user: user,
-        login: login,
-        logout: logout
-    }), [token, user, login, logout]);
+        login: login
+    }), [token, user])
 
-    return <SessionContext.Provider value={value} {...props} />;
+    return <SessionContext.Provider value = {value} {...props}/>
 }
 
-export const useSessionContexts = () => {
+export const useSessionContext = () => {
     const context = React.useContext(SessionContext);
 
-    if (!context) {
-        throw new Error("useUserContext() must be inside of UserProvider");
+    if(!context){
+        throw new Error("Ha ocurrido un error");
     }
 
     return context;
