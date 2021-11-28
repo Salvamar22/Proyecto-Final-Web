@@ -21,26 +21,25 @@ sessionServices.login = async (username, password) => {
     return {};
 }
 
-    sessionServices.verifyToken = async (token) => {
-        try{
-        
-            const config = {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            };
+sessionServices.verifyToken = async (token) => {
+    try{
+        const config = {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
       
-            const response = await fetch(`${BASE_URL}/auth/whoami`, config);
+        const response = await fetch(`${BASE_URL}/auth/whoami`, config);
 
-            if (response.ok) {
-                const data = await response.json();
-                return data;
-            };
-        } catch (error) {
-            console.error(error);
-            return {};
-        }
-    };
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        };
+    } catch (error) {
+        console.error(error);
+        return {};
+    }
+};
 
 export default sessionServices;

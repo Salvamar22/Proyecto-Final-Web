@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Login from './Componentes/Login/Login';
+import Login from './pages/Login/Login';
 import NotFound from './pages/NotFound/NotFound';
 import AdminPage from './pages/Admin/Admin';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
