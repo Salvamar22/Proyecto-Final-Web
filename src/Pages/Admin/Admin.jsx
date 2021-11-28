@@ -88,10 +88,11 @@ const AdminPage = () => {
     const hideOptions = () => { setShowOptions(false)};
     const hideShow = () => { return selectedPost.active ? "Ocultar Post" : "Mostrar Post"}
     return (
-        <div className="w-full bg-blue-800 relative">
+        <div className="text-center font-sans   w-full bg-blue-600 relative">
+            
             <TabContainer tabIndex={0} tabController={tabController} >
                 <button onClick={ () => {setTabController(1)}}>
-                    Añadir comentario
+                    Añadir nuevo post
                 </button>
                 <PostContainer posts={ posts } onOptions={ onOptions}/>
                 { showOptions && <Options options={[

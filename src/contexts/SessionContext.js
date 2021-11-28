@@ -14,13 +14,21 @@ export const SessionProvider = (props) => {
         const verifyToken = async () => {
             const tokenLS = localStorage.getItem(TOKEN_KEY);
 
+            
             if(tokenLS) {
-                const {username, role} = await sessionServices.verifyToken(tokenLS);
-                
-                if(username && role) {
-                    setUser({ username, role});
-                    setTokenAll(tokenLS);
+                const rest = await sessionServices.verifyToken(tokenLS);
+                if(rest){
+                    const {username, role} = rest
+
+                    if(username && role) {
+                        setUser({ username, role});
+                        setTokenAll(tokenLS);
+                    }
                 }
+                
+                
+
+                
             }
         };
 
