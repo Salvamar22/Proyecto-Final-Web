@@ -2,7 +2,7 @@ const BASE_URL = "https://posts-pw2021.herokuapp.com/api/v1";
 
 const transformPost = (rawPost) => {
     return {
-        id: rawPost._id,
+        _id: rawPost._id,
         title: rawPost.title,
         description: rawPost.description,
         image: rawPost.image,
@@ -16,7 +16,7 @@ const transformPost = (rawPost) => {
 const adminServices = {
 
     nullPost: {
-        id: 0,
+        _id: 0,
         title: "",
         description: "",
         image: null,
