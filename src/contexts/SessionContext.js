@@ -70,7 +70,8 @@ export const SessionProvider = (props) => {
     const value = useMemo( () => ({
         token: token,
         user: user,
-        login: login
+        login: login,
+        logout: logout
     }), [token, user])
 
     return <SessionContext.Provider value = {value} {...props}/>

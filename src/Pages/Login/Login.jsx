@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useSessionContext } from "../../Contexts/SessionContext.js";
 import Title from '../../Components/Title/Title';
 import Label from '../../Components/Label/Label';
 import Input from '../../Components/Input/Input';
-import { useSessionContext } from '../../contexts/SessionContext';
 
 const rolePages = {
     "admin": "/admin",
@@ -45,7 +45,7 @@ const Login = () => {
     }
 
     return(
-        <div class=" min-h-screen items-center  bg-gray-200 py-3 flex flex-col justify-center">
+        <div className=" min-h-screen items-center  bg-gray-200 py-3 flex flex-col justify-center">
             <div className= "bg-white border-solid border-2 border-black flex flex-col justify-center rounded-md">
             <Title text='¡BIENVENIDO!'/>
             {error && <p className=" mt-3 rounded-md p-2 text-center text-black  bg-red-300 select-none">

@@ -1,5 +1,5 @@
-import { useSessionContext } from './../../contexts/SessionContext';
 import { Navigate } from 'react-router-dom';
+import { useSessionContext } from "../../Contexts/SessionContext.js";
 
 const PrivateRoute = ({role="user", children }) => {
   const { token, user } = useSessionContext();
