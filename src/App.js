@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Login from './Pages/Login/Login';
+import Login from './Pages/Login/Login.jsx';
 import NotFound from './Pages/NotFound/NotFound';
 import UserPage from './Pages/UserPage/UserPage';
-import AdminPage from './Pages/Admin/Admin';
+import AdminPage from './Pages/AdminPage/AdminPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+
 function App() {
   return (
     <BrowserRouter>

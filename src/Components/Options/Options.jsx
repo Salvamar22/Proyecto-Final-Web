@@ -17,11 +17,11 @@ const Options = ( { options, onClickOutside=() => {}} ) => {
     });
 
     return (
-    <div ref={ myRef } className={`fixed bottom-0 w-full flex flex-col items-center bg-green-500 text-white`}>
+    <div ref={ myRef } className={`fixed bg-blue-500 bottom-0 w-full flex flex-col items-center bg-green-500 text-white`}>
         {
             options.map(
             option  =>  {
-                return <button className="w-full" key={i++} onClick={ option.action}> { option.text } </button>
+                return <button className="w-full text-xl hover:bg-blue-700" key={i++} onClick={ option.action}> { option.text } </button>
                 }
             )
         }

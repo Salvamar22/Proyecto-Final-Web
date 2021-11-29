@@ -5,6 +5,7 @@ import Input from '../../Components/Input/Input';
 
 const PostForm = ( { onSubmit, idPost="", titlePost="", descriptionPost="", imgPost="" } ) => {
     const [img, setImg] = useState(imgPost);
+    const [ error, setError] = useState("");
 
     const onChangeHandler = (e, save) => {
         save(e.target.value);
@@ -12,13 +13,25 @@ const PostForm = ( { onSubmit, idPost="", titlePost="", descriptionPost="", imgP
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        onSubmit( new FormData(e.target));
+        const data = new FormData(e.target);
+     
+        if(data.get("title") && data.get("description") && data.get("image")) {
+            if( data.get("title").length >= 8 && data.get("description").length >= 8) {
+                onSubmit(data);
+            } else {
+                setError("Los campos deben tener mas de 8 caracteres");
+            }
+        } else 
+            setError("No deje campos vacios");
     }
 
     return (
         <form onSubmit={ onSubmitHandler } className=" border-solid border-2 border-black w-80 flex flex-col bg-white rounded-2xl items-center ">
             <input className='regular-style px-2 py-2' name="idPost" value={idPost} type="hidden"/>
             <img className ="mt-3 rounded-2xl h-52 w-72  " src={ img } />
+            { error && <p className=" mt-3 rounded-md p-2 text-center text-black  bg-red-300 select-none">
+                        {error}
+                    </p>}
             <label className=" mt-3 block font-mono md:font-Cambria text-xl text-center ">
                 Titulo
             </label>

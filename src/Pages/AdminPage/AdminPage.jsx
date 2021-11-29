@@ -2,25 +2,36 @@ import { useSessionContext } from "../../contexts/SessionContext.js";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from 'react-icons/fa';
 import adminServices from "../../Services/admin.services.js";
+import userServices from "../../Services/user.services.js";
 import PostForm from "../../Components/PostForm/PostForm.jsx";
 import Options from "../../Components/Options/Options.jsx";
 import TabContainer from "../../Components/TabContainer/TabContainer.jsx";
 import PostContainer from "../../Components/PostContainer/PostContainer.jsx";
+import CommentView from "../../Components/CommentView/CommentView.jsx";
+import Post from "../../Components/Post/Post.jsx";
+
+
+const nullPost = {
+    _id: 0,
+    title: "",
+    description: "",
+    image: null,
+    active: false,
+    createdAt: null,
+    user: { username: ""},
+    likes: []
+};
 
 const AdminPage = () => {
     
-    const { token, user } = useSessionContext();
+    const { token, user, logout } = useSessionContext();
     const [ posts, setPosts ] = useState([]);
     const [ showOptions, setShowOptions ] = useState(false);
     const [ tabController, setTabController ] = useState(0);
-    const [ selectedPost, setSelectedPost ] = useState(adminServices.nullPost);
+    const [ selectedPost, setSelectedPost ] = useState(nullPost);
 
     useEffect( async () => {
         if(token) {
-            //console.log(await adminServices.toggleActive(token, "619b00736c9516021fcc6d50"))
-            console.log("Hola señora. Que tal?");
-            console.log("El token es: " + token);
-            //console.log(await adminServices.ownedPost(token));
             let res = await adminServices.ownedPost(token);
             setPosts(res);
             console.log(posts);
@@ -49,10 +60,10 @@ const AdminPage = () => {
                 console.log(await res);
                 selectedPost.title = formData.get("title");
                 selectedPost.description = formData.get("description");
-                selectedPost.image = formData.get("image");}
+                selectedPost.image = formData.get("image");
+                setTabController(0);}
             else
                 console.log("No se pudo editar");
-            setTabController(0);
     }
 
     const onToggleOptionHandler = async () => {
@@ -70,17 +81,53 @@ const AdminPage = () => {
         setShowOptions(false)
         setTabController(2);
     }
+    
+    const onLikeHandler = async (post, set) => {
+        console.log("Dando like");
+        setSelectedPost(post);
+        console.log(post);
+        setShowOptions(false);
+
+        let res = await userServices.like(token, post._id);
+        if( res) {
+            const updatePost = await userServices.getOne(token, post._id);
+            selectedPost.likes = await updatePost.likes;
+            post.likes = await updatePost.likes;
+            post = await updatePost;
+            setSelectedPost(updatePost);
+            console.log(post);
+        }
+        else
+            console.log("No se pudo likear");
+    }
+
+    const onSeeCommentsHandler = (post) => {
+        setSelectedPost(post);
+        setTabController(3);
+        setShowOptions(false);
+    }
+
+    const onCommentHandler = async (post, description) => {
+        setSelectedPost(post);
+        console.log("comment");
+        console.log(post);
+        console.log( description); 
+        const res = await userServices.comment(token, post._id, description);
+        //console.log(await userServices.getOne(token, "61a414c9f81b159c2faa38b0"))
+        //selectedPost.comments.push({ _id: , user: { username: user.username}, description: description});
+        
+        console.log(await res);
+        if( await res) {
+            const updatePost = await userServices.getOne(token, post._id);
+            selectedPost.comments = await updatePost.comments;
+            setSelectedPost(updatePost)
+        }
+        else
+            console.log("No se pudo comentar");
+    }
+
 
     const onOptions = async (post) => {
-        /*new Promise((resolve, reject)=>{
-            setSelectedPost(post);
-            resolve();
-        })
-        .then( res=> {
-        console.log("Jojos life");
-        console.log("Espero funcione" );
-        console.log(selectedPost.active);
-        setShowOptions(true);})*/
         setSelectedPost(post);
         setShowOptions(true);
     }
@@ -92,18 +139,17 @@ const AdminPage = () => {
     return (
         <div className=" min-h-screen text-center flex flex-col font-mono md:font-Cambria  w-full bg-gray-300 h-full relative">
             
+            <div className="w-full flex flex-wrap justify-around mx-auto bg-blue-500 text-white py-2 px-3 md:font-Cambria text-xl ">
+                <button className="hover:bg-blue-800" onClick={()=>{ setTabController(0)}}>Ver mis post</button>
+                <button className="hover:bg-blue-800" onClick={()=>{ setTabController(1)}}>Añadir nuevo post</button>
+                <button className="hover:bg-blue-800" onClick={()=>{ logout()}}>Logout</button>
+            </div>
+
             <TabContainer tabIndex={0} tabController={tabController} >
-                <button className = " bg-blue-500 text-white py-2 px-3 rounded-md hover:bg-blue-800  md:font-Cambria text-xl " onClick={ () => {setTabController(1)}}>
-                    Añadir nuevo post
-                </button>
-                <PostContainer posts={ posts } onOptions={ onOptions}/>
-                { showOptions && <Options options={[
-                    { text: "Editar", action: onEditOptionHandler},
-                    { text:  hideShow(), action: onToggleOptionHandler},
-                    { text: "Cancelar", action: () => { setShowOptions(false) }}
-                    ]}
-                    onClickOutside= { hideOptions}/>
-                }
+
+                <PostContainer posts={ posts } onOptions={ onOptions}
+                        onLike={ onLikeHandler} onChat={ onSeeCommentsHandler}/>
+            
             </TabContainer>
             
             <TabContainer className="bg-white p-14 flex flex-col h-full justify-center items-center" tabIndex={1} tabController={tabController} >
@@ -123,6 +169,23 @@ const AdminPage = () => {
                     descriptionPost={selectedPost.description}
                     imgPost={selectedPost.image} />
             </TabContainer>
+
+            <TabContainer className="" tabIndex={3} tabController={tabController}>
+                <CommentView post={selectedPost} onComment={onCommentHandler}>
+                    <Post post={ selectedPost } onOptions={ onOptions}
+                        onLike={ onLikeHandler} onChat={ onSeeCommentsHandler}/>
+                </CommentView>
+            </TabContainer>
+
+            { showOptions && <Options options={[
+                { text: "Editar", action: onEditOptionHandler},
+                { text:  hideShow(), action: onToggleOptionHandler},
+                { text: "Ver Comentarios", action: () => onSeeCommentsHandler(selectedPost)},
+                { text: "Cancelar", action: () => { setShowOptions(false) }}
+                ]}
+                onClickOutside= { hideOptions}/>
+            }
+
         </div>
     )
 }

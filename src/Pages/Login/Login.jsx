@@ -45,7 +45,7 @@ const Login = () => {
     }
 
     return(
-        <div class=" min-h-screen items-center  bg-gray-200 py-3 flex flex-col justify-center">
+        <div className=" min-h-screen items-center  bg-gray-200 py-3 flex flex-col justify-center">
             <div className= "bg-white border-solid border-2 border-black flex flex-col justify-center rounded-md">
             <Title text='¡BIENVENIDO!'/>
             {error && <p className=" mt-3 rounded-md p-2 text-center text-black  bg-red-300 select-none">
