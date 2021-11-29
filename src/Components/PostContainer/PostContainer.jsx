@@ -2,7 +2,7 @@ import PostAdmin from "../PostAdmin/PostAdmin.jsx"
 
 const PostContainer = ({ posts = [], onOptions = () => {} }) => {
     
-    return <div className="w-full flex flex-col items-center bg-gray-200">
+    return <div className="w-full h-full flex flex-col items-center bg-white">
         {
             posts.map(
                 p  =>  {
