@@ -16,7 +16,7 @@ const PostForm = ( { onSubmit, idPost="", titlePost="", descriptionPost="", imgP
     }
 
     return (
-        <form onSubmit={ onSubmitHandler } className=" border-solid border-2 border-black w-80 flex flex-col bg-gray-300 rounded-2xl items-center">
+        <form onSubmit={ onSubmitHandler } className=" border-solid border-2 border-black w-80 flex flex-col bg-white rounded-2xl items-center ">
             <input className='regular-style px-2 py-2' name="idPost" value={idPost} type="hidden"/>
             <img className ="mt-3 rounded-2xl h-52 w-72  " src={ img } />
             <label className=" mt-3 block font-mono md:font-Cambria text-xl text-center ">
@@ -33,7 +33,7 @@ const PostForm = ( { onSubmit, idPost="", titlePost="", descriptionPost="", imgP
             </label>
             <input className='regular-style px-2 py-2
             border-solid border-2 border-black rounded-2xl' name="image" type="text" defaultValue={imgPost} onChange={ e => onChangeHandler(e, setImg)}/>
-            <button className="mt-5 bg-blue-400 text-white py-2 px-2 rounded-md hover:bg-pink-200 font-mono md:font-Cambria text-2xl" type="submit">
+            <button className="mt-5 h-12 bg-blue-500 text-white py-2 px-2 rounded-md hover:bg-blue-800 font-mono md:font-Cambria text-2xl" type="submit">
                 Guardar
             </button>
         </form>
