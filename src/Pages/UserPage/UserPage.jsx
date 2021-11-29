@@ -13,9 +13,17 @@ const UserPage = () => {
     const [ tabController, setTabController] = useState(0);
 
     useEffect( async () => {
-        if(token) {
+        if(token) { //61a413c6f81b159c2fa9dd80
+            //console.log(await userServices.like(token,   "61a414c9f81b159c2faa38b0"));
+            //console.log(await userServices.fav(token,    "61a414c9f81b159c2faa38b0"));
+            console.log(await userServices.getOne(token, "61a414c9f81b159c2faa38b0"));
+            //console.log(await userServices.comment(token,"61a414c9f81b159c2faa38b0", "Buen post"));
+            const favs = await userServices.getFavorites(token);
+            const f = await Promise.all(favs.map(async (fId) => { return await userServices.getOne(token, fId) }));
+            console.log(f);
             let res = await userServices.getAll(token, 20, 0);
-            console.log(res);}
+            console.log(res);
+        }
     }, [token])
     
     return (
