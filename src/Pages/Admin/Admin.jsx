@@ -86,7 +86,9 @@ const AdminPage = () => {
     }
     
     const hideOptions = () => { setShowOptions(false)};
+
     const hideShow = () => { return selectedPost.active ? "Ocultar Post" : "Mostrar Post"}
+    
     return (
         <div className=" min-h-screen text-center flex flex-col font-mono md:font-Cambria  w-full bg-gray-300 h-full relative">
             
