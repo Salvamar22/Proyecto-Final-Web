@@ -90,10 +90,10 @@ const AdminPage = () => {
     const hideShow = () => { return selectedPost.active ? "Ocultar Post" : "Mostrar Post"}
     
     return (
-        <div className=" text-center flex flex-col font-mono md:font-Cambria  w-full bg-blue-600 h-full relative">
+        <div className=" min-h-screen text-center flex flex-col font-mono md:font-Cambria  w-full bg-gray-300 h-full relative">
             
             <TabContainer tabIndex={0} tabController={tabController} >
-                <button onClick={ () => {setTabController(1)}}>
+                <button className = " bg-blue-500 text-white py-2 px-3 rounded-md hover:bg-blue-800  md:font-Cambria text-xl " onClick={ () => {setTabController(1)}}>
                     Añadir nuevo post
                 </button>
                 <PostContainer posts={ posts } onOptions={ onOptions}/>
@@ -113,7 +113,7 @@ const AdminPage = () => {
                 <PostForm onSubmit={ onCreateHandler } />
             </TabContainer>
             
-            <TabContainer className="bg-white p-4 flex flex-col h-full justify-center items-center" tabIndex={2} tabController={tabController} >
+            <TabContainer className="bg-gray-300 p-4 flex flex-col h-full justify-center items-center" tabIndex={2} tabController={tabController} >
                 <button className="text-gray-400 text-lg self-start hover:text-gray-700 mb-2 absolute top-4 left-5" onClick={ () => {setTabController(0)}}>
                     <FaArrowLeft className="text-xl"/>
                 </button>
