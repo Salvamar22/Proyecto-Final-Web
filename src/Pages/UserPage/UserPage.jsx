@@ -3,6 +3,7 @@ import { useSessionContext } from "../../contexts/SessionContext.js";
 import { useEffect, useState } from "react";
 import userServices from "../../Services/user.services.js";
 import Options from "../../Components/Options/Options.jsx";
+import CommentView from "../../Components/CommentView/CommentView.jsx";
 import TabContainer from "../../Components/TabContainer/TabContainer.jsx";
 import PostContainer from "../../Components/PostContainer/PostContainer.jsx";
 
@@ -66,7 +67,9 @@ const UserPage = () => {
         console.log(selectedPost.active);
         setShowOptions(true);})*/
         setSelectedPost(post);
+        console.log(post);
         setShowOptions(true);
+        console.log(selectedPost);
     }
     const hideOptions = () => { setShowOptions(false)};
     
@@ -106,7 +109,7 @@ const UserPage = () => {
     }
     
     return (
-        <div className="w-full h-screen">
+        <div className="w-full min-h-screen">
             <TabContainer className="" tabIndex={0} tabController={tabController}>
 
                 <button onClick={()=>{ setTabController(1)}}>Ir a favoritos</button>
@@ -115,6 +118,7 @@ const UserPage = () => {
                 { showOptions && <Options options={[
                     { text: "Dar like", action: onLikeHandler},
                     { text:  "Favorito", action: onFavHandler},
+                    { text: "Ver Comentarios", action: () => { setTabController(2) }},
                     { text: "Cancelar", action: () => { setShowOptions(false) }}
                     ]}
                     onClickOutside= { hideOptions}/>
@@ -128,6 +132,7 @@ const UserPage = () => {
                 { showOptions && <Options options={[
                     { text: "Dar like", action: onLikeHandler},
                     { text:  "Favorito", action: onFavHandler},
+                    { text: "Ver Comentarios", action: () => { setTabController(2) }},
                     { text: "Cancelar", action: () => { setShowOptions(false) }}
                     ]}
                     onClickOutside= { hideOptions}/>
@@ -135,9 +140,11 @@ const UserPage = () => {
             </TabContainer>
 
             <TabContainer className="" tabIndex={2} tabController={tabController}>
-                <button onClick={()=>{ setTabController(1)}}>Regresar al segundo</button>
-                Soy el Ultimo tab. Pero puedes agregar mas
-                <button onClick={()=>{ setTabController(0)}}>Ir al primero</button>
+                <button onClick={()=>{ setTabController(0)}}>Ver todos</button>
+                <button onClick={()=>{ setTabController(1)}}>Ver favoritos</button>
+                <CommentView post={selectedPost}>
+                    <PostContainer post={ selectedPost } onOptions={ onOptions}/>
+                </CommentView>
             </TabContainer>
         </div>
     );

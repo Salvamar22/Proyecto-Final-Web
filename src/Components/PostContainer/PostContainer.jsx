@@ -6,7 +6,7 @@ const PostContainer = ({ posts = [], onOptions = () => {} }) => {
         {
             posts.map(
                 p  =>  {
-                    return <PostAdmin key={ p._id } post={ p } onOptions={ onOptions}/> 
+                    return p && <PostAdmin key={ p._id } post={ p } onOptions={ onOptions}/> 
             })
         }
     </div>
