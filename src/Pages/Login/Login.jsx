@@ -75,7 +75,7 @@ const Login = () => {
             handleChange={handleChange}
                 />
             
-            <button className="mt-5 bg-blue-400 text-white py-2 px-2 rounded-md hover:bg-pink-200 font-mono md:font-Cambria
+            <button className="mt-5 bg-blue-400 text-white py-2 px-2 rounded-md hover:bg-blue-600 font-mono md:font-Cambria
             text-2xl" onClick = {handleSubmit}>
                 Ingresar
             </button>
