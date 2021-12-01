@@ -18,7 +18,7 @@ const CommentView = ( {post, onComment = () => {}, children} ) => {
                     return c && <Comment key={ c._id } comment={ c }/> 
             })}
 
-            <form onSubmit={ onSubmitHandler } className="fixed bottom-0 flex items-center w-4/5 justify-center text-xl">
+            <form onSubmit={ onSubmitHandler } className="fixed bottom-0 flex items-center w-full sm:w-4/5 justify-center text-xl">
                 <input name="description" className='regular-style px-2 py-1 w-full sm:w-4/5
                     border-solid border-t-2 border-l-2 border-b-2 border-black rounded-l-md' type="text" placeholder="Añade un Comentario ..."/>
                 <button type="submit" className="bg-blue-400 text-white border-solid border-black border-t-2 border-r-2 border-b-2 py-1 px-2 rounded-r-md hover:bg-pink-200 font-mono md:font-Cambria text-xl"

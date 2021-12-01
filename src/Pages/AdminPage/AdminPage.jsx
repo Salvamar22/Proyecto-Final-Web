@@ -44,6 +44,11 @@ const AdminPage = () => {
             formData.get("title"),
             formData.get("description"),
             formData.get("image"));
+            if(res){
+                res = await adminServices.ownedPost(token);
+                setPosts(res);
+                setTabController(0);
+            }
         //console.log(await res.json());
     }
 
@@ -152,7 +157,7 @@ const AdminPage = () => {
             
             </TabContainer>
             
-            <TabContainer className="bg-white p-14 flex flex-col h-full justify-center items-center" tabIndex={1} tabController={tabController} >
+            <TabContainer className="bg-gray-300 p-14 flex flex-col h-full justify-center items-center" tabIndex={1} tabController={tabController} >
                 <button className="text-gray-400 self-start text-lg hover:text-gray-700 mb-2 absolute top-4 left-5"  onClick={ () => {setTabController(0)}}>
                     <FaArrowLeft className=" text-xl"/>
                 </button>
